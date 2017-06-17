@@ -1,4 +1,5 @@
 ﻿"use strict";
+
 let employees = {
     "1": {
         "firstName": 1.1,
@@ -101,3 +102,7 @@ empTable.tBodies[0].addEventListener("click", replacer);
 addEmpBut.addEventListener("click", addEmp);
 
 empTable.tBodies[0].addEventListener("change", endrep);
+
+
+
+
