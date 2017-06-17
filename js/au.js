@@ -67,7 +67,6 @@ function setCookie(name, value, options) {
 
 
 document.body.onload = function () {
-    alert( document.cookie );
     password.value = getCookie("auPassword") || password.value;
     login.value = getCookie("auLogin") || login.value;
 };
