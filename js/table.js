@@ -1,5 +1,7 @@
 ﻿"use strict";
 
+auCheck ();
+
 let employees = {
     "1": {
         "firstName": 1.1,
@@ -101,18 +103,19 @@ function endrep(e) {
     e.target.replaceWith(document.createTextNode(result));
 }
 
+function auCheck () {
+    if(parseInt(getCookie("auPass"))) return;
+    document.body.innerHTML = "";
+};
+
+
 objToList(empTable, employees);
 
 empTable.tBodies[0].addEventListener("click", replacer);
-
 
 addEmpBut.addEventListener("click", addEmp);
 
 empTable.tBodies[0].addEventListener("change", endrep);
 
-document.body.onload = function () {
-    if(getCookie("auPass")) return true;
-    document.body.style.display = "none";
-};
 
 
