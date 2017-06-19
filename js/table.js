@@ -73,6 +73,13 @@ function objToList(list, obj) {
     }
 }
 
+function getCookie(name) {
+    let matches = document.cookie.match(new RegExp(
+        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+    ));
+    return matches ? decodeURIComponent(matches[1]) : undefined;
+}
+
 function addEmp() {
     let rowOne = empTable.tBodies[0].appendChild(document.createElement("tr"));
     for (let i = 0; i < 5; i++) {
@@ -103,6 +110,9 @@ addEmpBut.addEventListener("click", addEmp);
 
 empTable.tBodies[0].addEventListener("change", endrep);
 
-
+document.body.onload = function () {
+    if(getCookie("auPass")) return true;
+    document.body.style.display = "none";
+};
 
 

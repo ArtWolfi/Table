@@ -21,11 +21,13 @@ function usersCheck(user) {
 function submitLogin() {
     if (users.some(usersCheck)) {
         setCookie("auLogin",login.value,{expires:7200});
-        setCookie("auPassword",password.value,{expires:7200})
+        setCookie("auPassword",password.value,{expires:7200});
+        setCookie("auPass",true,{expires:7200});
         window.location = "table.html";
         return
     }
     ;
+    setCookie("auPass",false,{expires:7200});
     alert("Неверный логин или пароль!");
 }
 
