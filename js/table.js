@@ -2,48 +2,45 @@
 
 auCheck ();
 
-let employees = {
-    "1": {
-        "firstName": 1.1,
-        "lastName": 1.2,
-        "age": 1.3,
-        "gender": 1.4,
-        "id": 1.5
-    },
-    "2": {
-        "firstName": 2.1,
-        "lastName": 2.2,
-        "age": 2.3,
-        "gender": 2.4,
-        "id": 2.5
-    },
-    "3": {
-        "firstName": 3.1,
-        "lastName": 3.2,
-        "age": 3.3,
-        "gender": 3.4,
-        "id": 3.5
-    },
-    "4": {
-        "firstName": 4.1,
-        "lastName": 4.2,
-        "age": 4.3,
-        "gender": 4.4,
-        "id": 4.5
-    },
-    "5": {
-        "firstName": "Максим",
-        "lastName": 5.2,
-        "age": 5.3,
-        "gender": 5.4,
-        "id": 5.5
-    },
-};
-
-
 let empTable = document.body.querySelector("#emptab"),
-    addEmpBut = document.body.querySelector("#button");
-empTable.style.maxWidth = "900px";
+    prevValue = "",
+    employees = {
+        "1": {
+            "firstName": 1.1,
+            "lastName": 1.2,
+            "age": 1.3,
+            "gender": 1.4,
+            "id": 1.5
+        },
+        "2": {
+            "firstName": 2.1,
+            "lastName": 2.2,
+            "age": 2.3,
+            "gender": 2.4,
+            "id": 2.5
+        },
+        "3": {
+            "firstName": 3.1,
+            "lastName": 3.2,
+            "age": 3.3,
+            "gender": 3.4,
+            "id": 3.5
+        },
+        "4": {
+            "firstName": 4.1,
+            "lastName": 4.2,
+            "age": 4.3,
+            "gender": 4.4,
+            "id": 4.5
+        },
+        "5": {
+            "firstName": "Максим",
+            "lastName": 5.2,
+            "age": 5.3,
+            "gender": 5.4,
+            "id": 5.5
+        },
+    };
 
 function objToList(list, obj) {
     let head = [].slice.call(list.rows[0].children);
@@ -94,13 +91,22 @@ function addEmp() {
 function replacer(e) {
     let elem = e.target;
     if (elem.tagName != "TD") return;
+    prevValue = elem.textContent;
     elem.firstChild.replaceWith(document.createElement("input"));
     elem.firstChild.setAttribute("type", "text");
+    elem.firstChild.addEventListener("blur", endrep);
+    elem.firstChild.focus()
 }
 
 function endrep(e) {
     let result = e.target.value;
-    e.target.replaceWith(document.createTextNode(result));
+    if(result) {
+        prevValue = "";
+        e.target.replaceWith(document.createTextNode(result));
+        return;
+    }
+    e.target.replaceWith(document.createTextNode(prevValue));
+    prevValue = "";
 }
 
 function auCheck () {
@@ -108,14 +114,26 @@ function auCheck () {
     document.body.innerHTML = "";
 };
 
-
 objToList(empTable, employees);
 
 empTable.tBodies[0].addEventListener("click", replacer);
 
-addEmpBut.addEventListener("click", addEmp);
+$("#button1").click(addEmp);
 
-empTable.tBodies[0].addEventListener("change", endrep);
+$("#button2").click(function (e) {
+        let elem = e.target;
+        if(elem.innerHTML == "Показать таблицу"){
+            $(".table-responsive").slideDown(2000);
+            elem.innerHTML = "Скрыть таблицу";
+            return;
+        };
+        if(elem.innerHTML == "Скрыть таблицу"){
+            $(".table-responsive").slideUp('slow');
+            elem.innerHTML = "Показать таблицу";
+            return;
+        }
+
+    })
 
 
 
